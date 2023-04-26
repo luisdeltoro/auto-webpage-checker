@@ -1,8 +1,10 @@
-import logging
 import os
+
 import boto3
 
-logger = logging.getLogger()
+from awc.logging import configure_logger
+
+logger = configure_logger()
 
 class SnsNotifier:
     def __init__(self):

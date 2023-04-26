@@ -1,11 +1,12 @@
 import os
 import shutil
 import uuid
-import logging
 
 from selenium import webdriver
 
-logger = logging.getLogger()
+from awc.logging import configure_logger
+
+logger = configure_logger()
 
 class WebBrowser:
     def __init__(self, browser_version='88.0.4324.150', driver_version = '88.0.4324.96', width=1916, height=1094):
