@@ -1,28 +1,38 @@
 # README
 
-## Setup (One time)
+## Prerequisities
+1. aws cli installed and configured with valid credentials. See: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+2. terraform installed. See: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 
-python3 -m venv ./venv
 
-source ./venv/bin/activate
-
-pip install --upgrade pip
-pip install -r requirements.txt
-
-## Invoke script locally
-from python/src/
+## Set up
+1. AWS credentials for terraform
+Create a file with your AWS credential called `terraform.tfvars` under `terraform/`
+Here is an example
 ```
-python3 -m awc.check_webpage
-```
-
-## Steps to deploy
-```
-make docker/push
+aws_access_key = <AWS_ACCESS_KEY>"
+aws_secret_key = "<AWS_SECRET_KEY>"
 ```
 
+2. Python Virtual Environment 
+Create the python virtual environment and install dependencies
 ```
-cd terraform
-terraform apply
+make install_requirements
+```
+
+## Run container locally
+```
+make docker/run
+```
+
+## Test locally running container
+```
+make docker/test
+```
+
+## Deploy to AWS
+```
+make deploy
 ```
 
 ## References:

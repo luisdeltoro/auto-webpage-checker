@@ -11,10 +11,6 @@ install_requirements: create_venv
 	. ./venv/bin/activate; \
 	pip install -r requirements.txt
 
-run: install_requirements
-	. ./venv/bin/activate; \
-	pip install -r requirements.txt
-
 create_out_dir:
 	mkdir -p out
 
