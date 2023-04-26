@@ -1,9 +1,6 @@
 ECR_ENDPOINT := $(shell cat ecr_endpoint.var)
 
 clean:
-.PHONY: generate_version
-
-clean:
 	@rm -rf out
 	@rm -rf __pycache__
 
@@ -39,8 +36,18 @@ docker/test:
 ecr/login:
 	aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(ECR_ENDPOINT)
 
-docker/push: ecr/login docker/build
+docker/push: docker/build ecr/login
 	VERSION=$$(cat out/version.txt); \
 	echo "Pushing awc-lambda docker image with tag: $${VERSION}"; \
 	docker tag awc-lambda:$${VERSION} $(ECR_ENDPOINT)/awc-lambda:latest
 	docker push $(ECR_ENDPOINT)/awc-lambda:latest
+
+terraform/plan:
+	cd terraform; \
+	terraform plan
+
+terraform/apply:
+	cd terraform; \
+	terraform apply
+
+deploy: docker/push terraform/apply

@@ -1,4 +1,3 @@
-# Define the IAM role for the Lambda function
 resource "aws_iam_role" "awc_lambda" {
   name = "awc_lambda_role"
 
@@ -16,7 +15,6 @@ resource "aws_iam_role" "awc_lambda" {
   })
 }
 
-# Attach the SNS publishing policy to the IAM role
 resource "aws_iam_role_policy_attachment" "lambda_sns_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   role       = aws_iam_role.awc_lambda.name
@@ -26,15 +24,19 @@ data "aws_ecr_repository" "awc_lambda" {
   name = "awc-lambda"
 }
 
-# Define the Lambda function
+data "aws_ecr_image" "awc_lambda" {
+  repository_name = "awc-lambda"
+  image_tag = "latest"
+}
+
 resource "aws_lambda_function" "awc" {
   image_uri        = "${data.aws_ecr_repository.awc_lambda.repository_url}:latest"
   package_type     = "Image"
   function_name    = "awc-function"
   role             = aws_iam_role.awc_lambda.arn
   timeout          = 600 # Update to set the Lambda function timeout to 10 minutes (in seconds)
+  source_code_hash = trimprefix(data.aws_ecr_image.awc_lambda.id, "sha256:")
 
-  # Define the environment variables for the Lambda function
   environment {
     variables = {
       SNS_TOPIC_ARN = aws_sns_topic.awc-main.arn
@@ -43,8 +45,7 @@ resource "aws_lambda_function" "awc" {
   }
 }
 
-# Grant the Lambda function permission to publish to the SNS topic
 resource "aws_iam_role_policy_attachment" "sns_publish" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSNSFullAccess" # Attach the SNS Full Access policy to the IAM Role
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSNSFullAccess"
   role       = aws_iam_role.awc_lambda.name
 }
