@@ -1,5 +1,8 @@
+import logging
 import os
 import boto3
+
+logger = logging.getLogger()
 
 class SnsNotifier:
     def __init__(self):
@@ -8,11 +11,11 @@ class SnsNotifier:
         self.sns_client = boto3.client('sns', region_name=aws_region)
 
     def send_notification(self, message):
-        print(f"Sending notification: {message} to topic: {self.topic_arn}")
+        logger.debug(f"Sending notification: {message} to topic: {self.topic_arn}")
         response = self.sns_client.publish(
             TopicArn=self.topic_arn,
             Message=message
         )
-        print(f"Message published with ID: {response['MessageId']}")
+        logger.info(f"Message published with ID: {response['MessageId']}")
 
 

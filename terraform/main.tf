@@ -41,6 +41,7 @@ resource "aws_lambda_function" "awc" {
     variables = {
       SNS_TOPIC_ARN = aws_sns_topic.awc-main.arn
       NOTIFICATION_MODE = "ON_SUCCESS"
+      LOG_LEVEl = "INFO"
     }
   }
 }
