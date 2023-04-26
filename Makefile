@@ -9,7 +9,22 @@ create_venv:
 
 install_requirements: create_venv
 	. ./venv/bin/activate; \
-	pip install -r requirements.txt
+	pip install -r requirements.txt; \
+	pip install -r dev_requirements.txt
+
+isort:
+	. ./venv/bin/activate; \
+	python -m isort app
+
+black:
+	. ./venv/bin/activate; \
+	python -m black app
+
+lint:
+	. ./venv/bin/activate; \
+	python -m flake8 --max-line-length=119 app
+
+pretty: isort black
 
 create_out_dir:
 	mkdir -p out
@@ -18,7 +33,7 @@ generate_version: create_out_dir
 	VERSION=$$(./bin/generate_version.sh); \
 	echo "$$VERSION" > out/version.txt
 
-docker/build: generate_version
+docker/build: generate_version pretty lint
 	VERSION=$$(cat out/version.txt); \
 	echo "Building Docker image with tag: $${VERSION}"; \
 	docker build -t awc-lambda:$${VERSION} .
