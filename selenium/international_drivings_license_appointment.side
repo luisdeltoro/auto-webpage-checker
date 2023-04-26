@@ -1,0 +1,50 @@
+{
+  "id": "c22c55a2-c079-4e57-a36d-d3d42340b8cb",
+  "version": "2.0",
+  "name": "international_drivings_license_appointment",
+  "url": "https://service.berlin.de",
+  "tests": [{
+    "id": "bff5c1f1-4a81-4b74-9f6d-c859550ef89d",
+    "name": "test_nav_nex_next_month",
+    "commands": [{
+      "id": "3b90d261-7fed-4274-9f28-ae46f491dbfb",
+      "comment": "",
+      "command": "open",
+      "target": "terminvereinbarung/termin/tag.php?termin=1&dienstleister=122285&anliegen[]=121591&herkunft=1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6b84c5ef-ac36-413e-b22b-003428a7c900",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1916x1094",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5d30bcf9-8a62-44cd-b471-c22d917df5ee",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=»",
+      "targets": [
+        ["linkText=»", "linkText"],
+        ["css=.next > a", "css:finder"],
+        ["xpath=//a[contains(text(),'»')]", "xpath:link"],
+        ["xpath=//div[@id='layout-grid__area--maincontent']/div/div/div[2]/div[2]/div/div/div[5]/div/div[2]/div[2]/table/thead/tr/th[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/terminvereinbarung/termin/day/1682892000/')]", "xpath:href"],
+        ["xpath=//th[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'»')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "4ae2dc35-4b29-47ed-afdd-f88d2c33df02",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["bff5c1f1-4a81-4b74-9f6d-c859550ef89d"]
+  }],
+  "urls": ["https://service.berlin.de/"],
+  "plugins": []
+}

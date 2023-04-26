@@ -1,0 +1,8 @@
+out/
+venv/
+__pycache__/
+*.iml
+terraform.tfvars
+.terraform/
+.terraform.lock.hcl
+ecr_endpoint.var
