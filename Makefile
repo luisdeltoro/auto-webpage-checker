@@ -24,7 +24,8 @@ docker/build: generate_version
 	docker build -t awc-lambda:$${VERSION} .
 
 docker/run:	docker/build
-	docker run -p 9000:8080 awc-lambda:latest
+	VERSION=$$(cat out/version.txt); \
+	docker run -p 9000:8080 awc-lambda:$${VERSION}
 
 docker/test:
 	curl -XPOST 'http://localhost:9000/2015-03-31/functions/function/invocations' -d '{}'
