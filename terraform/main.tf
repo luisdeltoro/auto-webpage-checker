@@ -26,7 +26,7 @@ data "aws_ecr_repository" "awc_lambda" {
 
 data "aws_ecr_image" "awc_lambda" {
   repository_name = "awc-lambda"
-  image_tag = "latest"
+  image_tag       = "latest"
 }
 
 resource "aws_lambda_function" "awc" {
@@ -39,10 +39,10 @@ resource "aws_lambda_function" "awc" {
 
   environment {
     variables = {
-      STRATEGY = "BERLIN_APPOINTMENT"
-      SNS_TOPIC_ARN = aws_sns_topic.awc-main.arn
+      STRATEGY          = "BERLIN_APPOINTMENT"
+      SNS_TOPIC_ARN     = aws_sns_topic.awc-main.arn
       NOTIFICATION_MODE = "ON_SUCCESS"
-      LOG_LEVEl = "INFO"
+      LOG_LEVEl         = "INFO"
     }
   }
 }

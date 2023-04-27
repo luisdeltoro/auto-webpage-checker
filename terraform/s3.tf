@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "awc" {
   bucket = "ldeltoro-awc"
+  force_destroy = true
   tags = {
     Name        = "AWC - S3 Bucket"
     Environment = "Dev"
@@ -10,7 +11,7 @@ resource "aws_s3_object" "awc_src_folder" {
   bucket = aws_s3_bucket.awc.bucket
   acl    = "private"
 
-  key    = "src/"
+  key = "src/"
 
   source = "/dev/null"
 }

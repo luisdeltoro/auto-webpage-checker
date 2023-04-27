@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "allow_awc_lambda_to_publish_to_awc_main_sns_topi
   policy_id = "__default_policy_ID"
 
   statement {
-    sid = "AllowLambdaToPublish"
+    sid    = "AllowLambdaToPublish"
     effect = "Allow"
     principals {
       type        = "Service"
@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "allow_awc_lambda_to_publish_to_awc_main_sns_topi
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values = [aws_lambda_function.awc.arn,]
+      values   = [aws_lambda_function.awc.arn, ]
     }
   }
 }
